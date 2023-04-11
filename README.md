@@ -52,7 +52,7 @@ The loss function of the discriminator is defined as:
 
 $L_D = -\log(D(x)) - \log(1 - D(G(z)))$
 
-where $x$ is a real image, and $D(x)$ is the output of the discriminator for the real image. The discriminator aims to maximize this loss function to correctly classify real and fake images.
+where $x$ is a real image, $G(z)$ is the generated image, and $D(x)$ is the output of the discriminator for the real image. The discriminator aims to maximize this loss function to correctly classify real and fake images.
 
 During training, the generator and discriminator are trained iteratively. The generator generates fake images, and the discriminator classifies the real and fake images. The gradients of the loss functions with respect to the parameters of the generator and discriminator are computed, and the parameters are updated accordingly.
 
@@ -78,7 +78,7 @@ One way to improve the performance of our model is to train the model for more e
 
 VAE is a generative model that can generate new images by sampling from a latent space. It consists of an encoder and a decoder. The encoder takes an image as input and outputs a latent vector. The decoder takes the latent vector as input and generates an image. The VAE model is trained to minimize the reconstruction loss between the input image and the generated image. The latent vector is sampled from a normal distribution with zero mean and unit variance. The latent vector can be used to generate new images by sampling from the normal distribution.
 
-We can also use a different dataset, such as the WikiArt dataset, to train our model. WikiArt is a large dataset of paintings from different artists. It contains 50,000 images of paintings in the JPG format and have a resolution of 256x256 pixels. We can use this dataset to train our model and generate paintings of other styles.
+I can also use a different dataset, such as the WikiArt dataset, to train our model. WikiArt is a large dataset of paintings from different artists. It contains 50,000 images of paintings in the JPG format and have a resolution of 256x256 pixels. I can use this dataset to train our model and generate paintings of other styles and conduct a neural style transfer.
 
 ## Reference
 [1] https://arxiv.org/pdf/1511.06434v2.pdf
