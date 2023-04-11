@@ -35,7 +35,7 @@ The discriminator is a binary classifier that takes an image as input and output
 | Batch Normalization | 16x16x128 | - | - | - | - |
 | Convolution | 8x8x256 | 4x4 | 2 | Same | LeakyReLU |
 | Batch Normalization | 8x8x256 | - | - | - | - |
-| Convolution | 4x4x512 | 5x5 | 2 | Same | LeakyReLU |
+| Convolution | 4x4x512 | 4x4 | 2 | Same | LeakyReLU |
 | Batch Normalization | 4x4x512 | - | - | - | - |
 | Convolution | 1x1x1 | 4x4 | 1 | Valid | Sigmoid |
 
