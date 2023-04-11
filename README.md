@@ -28,18 +28,17 @@ I use Adam optimizer with a learning rate of 0.0002 and a momentum of 0.5. The l
 
 The discriminator is a binary classifier that takes an image as input and outputs a probability indicating whether the input is real or fake. Both the generator and discriminator are composed of several convolutional and transposed convolutional layers.
 
-The discriminator consists of four convolutional layers followed by a sigmoid activation function. Each convolutional layer decreases the spatial resolution of the input by a factor of two. The loss function used in our model is the binary cross-entropy loss. We used the Adam optimization algorithm with a learning rate of 0.0002 and a momentum of 0.5.
+The discriminator consists of four convolutional layers followed by a sigmoid activation function. Each convolutional layer decreases the spatial resolution of the input by a factor of two. The loss function used in our model is the binary cross-entropy loss. I also used the Adam optimization algorithm with a learning rate of 0.0002 and a momentum of 0.5 for optimizing the discriminator.
 
-In our model, we used the binary cross-entropy loss, which measures the difference between the predicted output and the true output. The loss function of the generator is defined as:
+The binary cross-entropy loss measures the difference between the predicted output and the true output. The loss function of the generator is defined as:
 
-$-{(y\log(p) + (1 - y)\log(1 - p))}$
+$L = -{(y\log(p) + (1 - y)\log(1 - p))}$
 
-where $z$ is the random noise vector, $G(z)$ is the output of the generator, and $D(\cdot)$ is the output of the discriminator. The generator aims to minimize this loss function to generate images that can fool the discriminator.
+where $y$ is the true output, $p$ is the predicted output, and $y$ and $p$ are both scalars. The generator aims to minimize this loss function to generate images that can fool the discriminator.
 
 The loss function of the discriminator is defined as:
 
 $L_D = -\log(D(x)) - \log(1 - D(G(z)))$
-
 
 where $x$ is a real image, and $D(x)$ is the output of the discriminator for the real image. The discriminator aims to maximize this loss function to correctly classify real and fake images.
 
@@ -48,6 +47,7 @@ During training, the generator and discriminator are trained iteratively. The ge
 ## Evaluation
 We can evaluate the performance of our model by monitoring the loss values during training. Ideally, we want to see a decrease in the loss values over time, which indicates that the generator and discriminator are improving.
 ![alt text](./res/loss_func.png)
+The loss values of the first iteration are $Loss(D)$: 1.9443	$Loss(G)$: 6.4855 and the loss values of the last iteration are $Loss(D)$: 0.1673	$Loss(G)$: 4.2439. We can see that the loss values of the generator and discriminator are decreasing over time, which indicates that the generator and discriminator are improving. Howevver, the loss value occilates a lot from the 1000th iterations and does not decrease significantly after that. This is probably because the generator and discriminator are not able to learn from each other.
 
 Another way to evaluate the performance of our model is to generate some images and visually inspect them. We can also use the discriminator to classify the generated images as real or fake. Ideally, we want to see that the discriminator classifies the generated images as real.
 
