@@ -1,4 +1,4 @@
-# wikiart-DCGAN
+# wikiart-neural-trasnfer
 ## Author
 Meng Chen
 ## Data Set
