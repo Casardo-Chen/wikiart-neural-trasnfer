@@ -137,8 +137,7 @@ $L_{total}(S,C,G) = \beta L_{content}(C,G) + \alpha L_{style}(S,G)$
 
 The content loss is the mean squared error between the feature maps of the input image and the feature maps of the content image. 
 
-$L_{content}(C,G) = \sum_{l}\sum_{i,j} (m_l(C)_{ij} - m_l(G)_{ij})^2$
-
+$$L_{content}(C,G) = \sum_{l}\sum_{i,j} (m_l(C)_{ij} - m_l(G)_{ij})^2$$
 
 The style loss is the mean squared error between the Gram matrix of the feature maps of the input image and the Gram matrix of the feature maps of the style image.
 
