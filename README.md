@@ -135,7 +135,7 @@ The loss function of the neural style transfer model is the weighted sum of the 
 
 ### Evaluation
 I tested 3 different style images and 3 different content images. The results are shown in the following images.
-case 1: style image: ![alt text](./res/nst_style_1.jpg) content image: ![alt text](./res/nst_content_1.jpg) output image: ![alt text](./res/nst_result_1.jpg)
+case 1: style image: ![alt text](./res/nst_style_1.png) content image: ![alt text](./res/nst_content_1.png) output image: ![alt text](./res/nst_result_1.png)
 
 
 ## Discussion and Future Work
