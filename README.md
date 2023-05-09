@@ -132,10 +132,18 @@ The architecture of the VGG19 model is shown in the following image: ![alt text]
 
 ### Loss Function
 The loss function of the neural style transfer model is the weighted sum of the content loss and the style loss. 
-$L_{total}(S,C,G) = L_{content}(C,G) + \alpha L_{style}(S,G)$
+
+$L_{total}(S,C,G) = \beta L_{content}(C,G) + \alpha L_{style}(S,G)$
+
 The content loss is the mean squared error between the feature maps of the input image and the feature maps of the content image. 
 
+$L_{content}(C,G) = \sum_{l}\sum_{i,j}(m_l(C)_{ij} - m_l(G)_{ij})^2$
+
+
 The style loss is the mean squared error between the Gram matrix of the feature maps of the input image and the Gram matrix of the feature maps of the style image.
+
+$L_{style}(S,G) = \frac{1}{4n^2m^2}\sum_{l}\sum_{i,j}(G_l(S)_{ij} - G_l(G)_{ij})^2$
+
 ### Evaluation
 I tested 3 different style images and 3 different content images. The results are shown in the following images.
 | Abstract Art No. | Style | Input | Output | Content Weight | Style Weight | Content Loss | Style Loss | Epochs | 
