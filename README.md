@@ -13,8 +13,7 @@ https://www.kaggle.com/datasets/bryanb/abstract-art-gallery
 It contains two folders Abstract_gallery and Abstract_gallery_2. Abstract_gallery folder contains 2782 images of abstract art while Abstract_gallery_2 contains 90 images. The images are in the JPG format and have a resolution of 256x256 pixels. I used the Abstract_gallery folder for training.
 
 Neural Transfer:
-In Neural Transfer, I collected some art images and fun content images from the internet. The art images are from the following websites:
-
+It contains content images for neural transfer, including starry night, mona lisa and a potrait of myself.
 
 ## GAN Model
 Abstract art has always been an intriguing topic for art lovers and researchers. In this first solution, I used a Deep Convolutional Generative Adversarial Network (DCGAN) model for generating abstract art.
@@ -119,29 +118,28 @@ The encoder takes an image as input and outputs a latent vector. The architectur
 
 
 ## Neural Transfer Model
-Neural-Transfer, allows you to take an image and reproduce it with a new artistic style. The algorithm takes three images, an input image, a content-image, and a style-image, and changes the input to resemble the content of the content-image and the artistic style of the style-image. \[4\]
+Neural Transfer allows me to take an image and reproduce it with a new artistic style. The algorithm takes three images, an input image, a content-image, and a style-image, and changes the input to resemble the content of the content-image and the artistic style of the style-image. \[4\]
 
-To implement neural style transfer, I use a pre-trained VGG19 model. I chose a picture from the abstract art gallery dataset as the style image and a picture from the WikiArt dataset as the style image and pictures from Neural Style Transfer 
-esize the images in the Abstract Art Gallery dataset to 64x64 pixels.
+To extract the features of the pictures, I use a pre-trained VGG19 model. A bpre-trained model is helpful in facilitating the training process. I choose one picture from the abstract art gallery dataset as the style image and a picture from the WikiArt dataset as the style image and pictures from Neural Style Transfer folder (starry night, mona lisa, and a potrait of myself) as the content images. I resize the images in the Abstract Art Gallery dataset to 64x64 pixels.
 
-The architecture of the Neural Transfer Model: ![alt text](./res/nst-architecture.png)
+The architecture of the Neural Transfer Model[7]: ![alt text](./res/nst-architecture.png)
 
 ### VGG19 Model
-VGG19 is a convolutional neural network that consists of 16 convolutional layers and 3 fully connected layers. The convolutional layers are used to extract features from the input image. The fully connected layers are used to classify the input image. The VGG19 model is trained on the ImageNet dataset, which contains 1.2 million images. I directly used the pre-trained VGG19 model as it has already learned to extract features from images.
-The architecture of the VGG19 model is shown in the following image: ![alt text](./res/VGG-19-Architecture.png)
+VGG19 is a convolutional neural network that consists of 16 convolutional layers and 3 fully connected layers. The convolutional layers are commonly used to extract features from the input image. The fully connected layers are used to classify the input image. The VGG19 model is trained on the ImageNet dataset, which contains 1.2 million images. I directly used the pre-trained VGG19 model as it has already learned to extract features from images.
+The architecture of the VGG19 model is shown in the following image [8]: ![alt text](./res/VGG-19-Architecture.png)
 
 ### Loss Function
-The loss function of the neural style transfer model is the weighted sum of the content loss and the style loss. 
+The loss function of the neural style transfer model is the weighted sum of the content loss and the style loss. I tuned the weights of the content loss and the style loss to get the best results. With higher weights on the content loss, the generated image will be more similar to the content image. With higher weights on the style loss, the generated image will be more similar to the style image. I summarized the weights for generating the best results in the evaluation section.
 
 $L_{total}(S,C,G) = \beta L_{content}(C,G) + \alpha L_{style}(S,G)$
 
 The content loss is the mean squared error between the feature maps of the input image and the feature maps of the content image. 
 
-$$L_{content}(C,G) = \sum_{l}\sum_{i,j} (m_l(C)_{ij} - m_l(G)_{ij})^2$$
+$L_{content}(C,G) = \sum_{l}\sum_{i,j} (m_l(C)_{ij} - m_l(G)_{ij})^2$
 
 The style loss is the mean squared error between the Gram matrix of the feature maps of the input image and the Gram matrix of the feature maps of the style image.
 
-$` L_{style}(S,G) = \frac{1}{4n^2m^2}\sum_{l}\sum_{i,j} (G_l(S)_{ij} - G_l(G)_{ij})^2 `$
+$L_{style}(S,G) = \frac{1}{4n^2m^2}\sum_{l}\sum_{i,j} (G_l(S)_{ij} - G_l(G)_{ij})^2$
 
 ### Evaluation
 I tested 3 different style images and 3 different content images. The results are shown in the following images.
@@ -151,10 +149,10 @@ I tested 3 different style images and 3 different content images. The results ar
 | 14 | ![alt text](./res/nst_style_2.png) | ![alt text](./res/nst_input_2.png) | ![alt text](./res/nst_result_2.png) | 5 |100000 | 196.481659 | 18.428104 | 300
 | 26 | ![alt text](./res/nst_style_3.png) | ![alt text](./res/nst_input_3.png) | ![alt text](./res/nst_result_3.png) | 10 |1000000 | 362.762299 | 57.876976 | 300
 
-To evaluate the performance of the model, I used the content loss and the style loss as the evaluation metrics. It is noticeable that as the content image become more concrete (a real-life photo), the content loss increases. This is because the model is trained on abstract art images, and it is not able to extract features from real-life photos. The style loss is not affected by the content image. This is because the style loss is calculated based on the Gram matrix of the feature maps of the style image, which is not affected by the content image.
+To evaluate the performance of the model, I used the content loss and the style loss as the evaluation metrics. It is noticeable that the content loss increases when the content image become more concrete (a real-life photo) as the corresponding content weight increases. For he model art content images, it is relatively to transfer the abstract art style while keeping the original content. The style loss lies in a reasonable range in all three cases. I asked 10 people to evaluate the generated images. The mona lisa style image has the highest score (8.5/10) while the potrait style image has the lowest score (7/10) since the network transfers too much style from the style image that blurs the content. The starry night style image has a score of 8.2/10.
 
 ## Discussion and Future Work
-One way to improve the performance of our model is to train the model for more epochs. However, the training time is very long, and I only have limited time to train the model.
+One way to improve the performance of my models is to train the model for more epochs. However, the training time is very long, and I only have limited time to train the model.
 
 I can also use a different dataset, such as the WikiArt dataset, to train our model. WikiArt is a large dataset of paintings from different artists. It contains 50,000 images of paintings in the JPG format and have a resolution of 256x256 pixels. I can use this dataset to train our model and generate paintings of other styles and conduct a neural style transfer.
 
@@ -166,3 +164,7 @@ I can also use a different dataset, such as the WikiArt dataset, to train our mo
 [3] https://learnopencv.com/variational-autoencoder-in-tensorflow/
 
 [4] https://arxiv.org/abs/1508.06576
+
+[7] https://www.v7labs.com/blog/neural-style-transfer
+
+[8] https://www.researchgate.net/figure/VGG-19-Architecture-39-VGG-19-has-16-convolution-layers-grouped-into-5-blocks-After_fig5_359771670
