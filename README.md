@@ -121,17 +121,21 @@ The encoder takes an image as input and outputs a latent vector. The architectur
 ## Neural Transfer Model
 Neural-Transfer, allows you to take an image and reproduce it with a new artistic style. The algorithm takes three images, an input image, a content-image, and a style-image, and changes the input to resemble the content of the content-image and the artistic style of the style-image. \[4\]
 
-To implement neural style transfer, we need to use a pre-trained VGG19 model. I chose a picture from the abstract art gallery dataset as the style image and a picture from the WikiArt dataset as the style image and pictures from Neural Style Transfer 
+To implement neural style transfer, I use a pre-trained VGG19 model. I chose a picture from the abstract art gallery dataset as the style image and a picture from the WikiArt dataset as the style image and pictures from Neural Style Transfer 
 esize the images in the Abstract Art Gallery dataset to 64x64 pixels.
 
-The architecture of the VGG19 model is shown in the following image: ![alt text](./res/nst-architecture.png)
+The architecture of the Neural Transfer Model: ![alt text](./res/nst-architecture.png)
 
-### Architecture
+### VGG19 Model
 VGG19 is a convolutional neural network that consists of 16 convolutional layers and 3 fully connected layers. The convolutional layers are used to extract features from the input image. The fully connected layers are used to classify the input image. The VGG19 model is trained on the ImageNet dataset, which contains 1.2 million images. I directly used the pre-trained VGG19 model as it has already learned to extract features from images.
 The architecture of the VGG19 model is shown in the following image: ![alt text](./res/VGG-19-Architecture.png)
 
 ### Loss Function
-The loss function of the neural style transfer model is the weighted sum of the content loss and the style loss. The content loss is the mean squared error between the feature maps of the input image and the feature maps of the content image. The style loss is the mean squared error between the Gram matrix of the feature maps of the input image and the Gram matrix of the feature maps of the style image.
+The loss function of the neural style transfer model is the weighted sum of the content loss and the style loss. 
+$L_{total}(S,C,G) = L_{content}(C,G) + \alpha L_{style}(S,G)$
+The content loss is the mean squared error between the feature maps of the input image and the feature maps of the content image. 
+
+The style loss is the mean squared error between the Gram matrix of the feature maps of the input image and the Gram matrix of the feature maps of the style image.
 ### Evaluation
 I tested 3 different style images and 3 different content images. The results are shown in the following images.
 | Abstract Art No. | Style | Input | Output | Content Weight | Style Weight | Content Loss | Style Loss | Epochs | 
@@ -140,8 +144,10 @@ I tested 3 different style images and 3 different content images. The results ar
 | 14 | ![alt text](./res/nst_style_2.png) | ![alt text](./res/nst_input_2.png) | ![alt text](./res/nst_result_2.png) | 5 |100000 | 196.481659 | 18.428104 | 300
 | 26 | ![alt text](./res/nst_style_3.png) | ![alt text](./res/nst_input_3.png) | ![alt text](./res/nst_result_3.png) | 10 |1000000 | 362.762299 | 57.876976 | 300
 
+To evaluate the performance of the model, I used the content loss and the style loss as the evaluation metrics. It is noticeable that as the content image become more concrete (a real-life photo), the content loss increases. This is because the model is trained on abstract art images, and it is not able to extract features from real-life photos. The style loss is not affected by the content image. This is because the style loss is calculated based on the Gram matrix of the feature maps of the style image, which is not affected by the content image.
+
 ## Discussion and Future Work
-One way to improve the performance of our model is to train the model for more epochs. However, the training time is very long, and I only have limited time to train the model. Another way to improve the performance of our model is to use a different model, such as a
+One way to improve the performance of our model is to train the model for more epochs. However, the training time is very long, and I only have limited time to train the model.
 
 I can also use a different dataset, such as the WikiArt dataset, to train our model. WikiArt is a large dataset of paintings from different artists. It contains 50,000 images of paintings in the JPG format and have a resolution of 256x256 pixels. I can use this dataset to train our model and generate paintings of other styles and conduct a neural style transfer.
 
