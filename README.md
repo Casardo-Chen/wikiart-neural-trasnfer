@@ -138,7 +138,7 @@ I tested 3 different style images and 3 different content images. The results ar
 |:-----|:--------:|------:| ------:| ------:| ------:| ------:| ------:| ------:|
 | 30 | ![alt text](./res/nst_style_1.png) | ![alt text](./res/nst_input_1.png) | ![alt text](./res/nst_result_1.png) | 1 |1000000 | 38.725903 | 29.397888 | 300
 | 14 | ![alt text](./res/nst_style_2.png) | ![alt text](./res/nst_input_2.png) | ![alt text](./res/nst_result_2.png) | 5 |100000 | 196.481659 | 18.428104 | 300
-
+| 26 | ![alt text](./res/nst_style_3.png) | ![alt text](./res/nst_input_3.png) | ![alt text](./res/nst_result_3.png) | 10 |1000000 | 362.762299 | 57.876976 | 300
 
 ## Discussion and Future Work
 One way to improve the performance of our model is to train the model for more epochs. However, the training time is very long, and I only have limited time to train the model. Another way to improve the performance of our model is to use a different model, such as a
