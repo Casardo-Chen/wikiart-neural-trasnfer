@@ -141,7 +141,7 @@ $$L_{content}(C,G) = \sum_{l}\sum_{i,j} (m_l(C)_{ij} - m_l(G)_{ij})^2$$
 
 The style loss is the mean squared error between the Gram matrix of the feature maps of the input image and the Gram matrix of the feature maps of the style image.
 
-$ L_{style}(S,G) = \frac{1}{4n^2m^2}\sum_{l}\sum_{i,j} (G_l(S)_{ij} - G_l(G)_{ij})^2 $
+$` L_{style}(S,G) = \frac{1}{4n^2m^2}\sum_{l}\sum_{i,j} (G_l(S)_{ij} - G_l(G)_{ij})^2 `$
 
 ### Evaluation
 I tested 3 different style images and 3 different content images. The results are shown in the following images.
