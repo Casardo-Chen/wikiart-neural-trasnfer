@@ -122,7 +122,8 @@ Neural Transfer allows me to take an image and reproduce it with a new artistic 
 
 To extract the features of the pictures, I use a pre-trained VGG19 model. A bpre-trained model is helpful in facilitating the training process. I choose one picture from the abstract art gallery dataset as the style image and a picture from the WikiArt dataset as the style image and pictures from Neural Style Transfer folder (starry night, mona lisa, and a potrait of myself) as the content images. I resize the images in the Abstract Art Gallery dataset to 64x64 pixels.
 
-The architecture of the Neural Transfer Model[7]: ![alt text](./res/nst-architecture.png | width = 200)
+The architecture of the Neural Transfer Model[7]: 
+<img src="./res/nst-architecture.png" width="300" height="400" />
 
 ### VGG19 Model
 VGG19 is a convolutional neural network that consists of 16 convolutional layers and 3 fully connected layers. The convolutional layers are commonly used to extract features from the input image. The fully connected layers are used to classify the input image. The VGG19 model is trained on the ImageNet dataset, which contains 1.2 million images. I directly used the pre-trained VGG19 model as it has already learned to extract features from images.
