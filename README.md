@@ -123,6 +123,7 @@ Neural Transfer allows me to take an image and reproduce it with a new artistic 
 To extract the features of the pictures, I use a pre-trained VGG19 model. A bpre-trained model is helpful in facilitating the training process. I choose one picture from the abstract art gallery dataset as the style image and a picture from the WikiArt dataset as the style image and pictures from Neural Style Transfer folder (starry night, mona lisa, and a potrait of myself) as the content images. I resize the images in the Abstract Art Gallery dataset to 64x64 pixels.
 
 The architecture of the Neural Transfer Model[7]: 
+
 <img src="./res/nst-architecture.png" width="300" height="400" />
 
 ### VGG19 Model
