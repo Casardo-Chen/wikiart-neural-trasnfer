@@ -134,7 +134,7 @@ The architecture of the VGG19 model is shown in the following image: ![alt text]
 The loss function of the neural style transfer model is the weighted sum of the content loss and the style loss. The content loss is the mean squared error between the feature maps of the input image and the feature maps of the content image. The style loss is the mean squared error between the Gram matrix of the feature maps of the input image and the Gram matrix of the feature maps of the style image.
 ### Evaluation
 I tested 3 different style images and 3 different content images. The results are shown in the following images.
-| Case | Input | Style | Output| 
+| Case | Style | Input | Output| 
 |:-----|:--------:|------:| ------:|
 | 1 | ![alt text](./res/nst_style_1.png) | ![alt text](./res/nst_input_1.png) | ![alt text](./res/nst_result_1.png) |
 
