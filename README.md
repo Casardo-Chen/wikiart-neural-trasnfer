@@ -124,7 +124,7 @@ To extract the features of the pictures, I use a pre-trained VGG19 model. A bpre
 
 The architecture of the Neural Transfer Model[7]: 
 
-<img src="./res/nst-architecture.png" width="300" height="400" />
+<div style="text-align:center"><img src="./res/nst-architecture.png" width="300" height="400" /> </div>
 
 ### VGG19 Model
 VGG19 is a convolutional neural network that consists of 16 convolutional layers and 3 fully connected layers. The convolutional layers are commonly used to extract features from the input image. The fully connected layers are used to classify the input image. The VGG19 model is trained on the ImageNet dataset, which contains 1.2 million images. I directly used the pre-trained VGG19 model as it has already learned to extract features from images.
