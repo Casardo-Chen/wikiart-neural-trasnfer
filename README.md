@@ -106,6 +106,8 @@ $KL = -\frac{1}{2}\sum_{i=1}^{N}(1 + \log(\sigma_i^2) - \mu_i^2 - \sigma_i^2)$
 where $\mu_i$ and $\sigma_i$ are the mean and standard deviation of the latent vector, respectively.
 
 ### Architecture 1
+The first architecture is insprired by the VAE model proposed by Diederik P Kingma and Max Welling [4]. The input image size is 64x64x3; batch size is 64; the latent vector size is 100; the number of epochs is 100; the learning rate is 0.0002; the $\beta$ value is 0.5; the optimizer is Adam; the loss function is MSE loss.
+
 #### Encoder
 The encoder takes an image as input and outputs a latent vector. The architecture of the encoder is shown in the following image:
 | Layer Type | Output Shape | Kernal Size | Stride | Padding |Activation |
@@ -135,13 +137,65 @@ The encoder takes an image as input and outputs a latent vector. The architectur
 | Batch Normalization | 16x16x64 | - | - | - | - | - |
 | Transposed Convolution | 32x32x32 | 3x3 | 2 | Same | 1 | LeakyReLU |
 | Batch Normalization | 32x32x32 | - | - | - | - | - |
-| Transposed Convolution | 64x64x3 | 3x3 | 2 | Same | 1 | Tanh |
+| Transposed Convolution | 64x64x32 | 3x3 | 2 | Same | 1 | LeakyReLU |
+| Batch Normalization | 64x64x32 | - | - | - | - | - |
+| Convolution | 64x64x3 | 3x3 | 1 | Same | - | Tanh |
 
+### Architecture 2
 
+The second architecture is insprired by the VAE model proposed by Tuan Le [4]. The input image size is 128x128x3; batch size is 100; the latent vector size is 100; the number of epochs is 10; the learning rate is 0.0002; the $\beta$ value is 0.5; the optimizer is Adam; the loss function is MSE loss.
+
+#### Encoder
+Encoder takes an image as input and outputs a latent vector. It consists of 5 convolutional layers, 5 max pooling layers, and 5 batch normalization layers. 
+Input: 128x128x3
+| Layer Type | Output Shape | Kernal Size | Stride | Padding |Activation |
+|:-----|:--------:|------:| ------:| ------:| ------:|
+| Convolution | 128x128x256 | 3x3 | 1 | Same | ReLU |
+| Max Pooling | 64x64x256 | 2x2 | - | - | - |
+| Batch Normalization | 64x64x256 | - | - | - | - |
+| Convolution | 64x64x128 | 3x3 | 1 | Same | ReLU |
+| Max Pooling | 32x32x128 | 2x2 | - | - | - |
+| Batch Normalization | 32x32x128 | - | - | - | - |
+| Convolution | 32x32x64 | 3x3 | 1 | Same | ReLU |
+| Max Pooling | 16x16x64 | 2x2 | - | - | - |
+| Batch Normalization | 16x16x64 | - | - | - | - |
+| Convolution | 16x16x32 | 3x3 | 1 | Same | ReLU |
+| Max Pooling | 8x8x32 | 2x2 | - | - | - |
+| Batch Normalization | 8x8x32 | - | - | - | - |
+| Convolution | 8x8x16 | 3x3 | 1 | Same | ReLU |
+| Max Pooling | 4x4x16 | 2x2 | - | - | - |
+| Batch Normalization | 4x4x16 | - | - | - | - |
+
+#### Decoder
+The decoder takes a latent vector as input and outputs an image. It consists of 5 transposed convolutional layers, 10 batch normalization layers, and 6 convolutional layer.
+Input: 4x4x16
+| Layer Type | Output Shape | Kernal Size | Stride | Padding | Output Padding | Activation |
+|:-----|:--------:|------:| ------:| ------:| ------:| ------:|
+| Convolution | 4x4x16 | 3x3 | 1 | Same | - | ReLU |
+| Batch Normalization | 4x4x16 | - | - | - | - | - |
+| Transposed Convolution | 8x8x32 | 3x3 | 2 | Same | 1 | ReLU |
+| Batch Normalization | 8x8x32 | - | - | - | - | - |
+| Convolution | 8x8x32 | 3x3 | 1 | Same | - | ReLU |
+| Batch Normalization | 8x8x32 | - | - | - | - | - |
+| Transposed Convolution | 16x16x64 | 3x3 | 2 | Same | 1 | ReLU |
+| Batch Normalization | 16x16x64 | - | - | - | - | - |
+| Convolution | 16x16x64 | 3x3 | 1 | Same | - | ReLU |
+| Batch Normalization | 16x16x64 | - | - | - | - | - |
+| Transposed Convolution | 32x32x128 | 3x3 | 2 | Same | 1 | ReLU |
+| Batch Normalization | 32x32x128 | - | - | - | - | - |
+| Transposed Convolution | 64x64x256 | 3x3 | 2 | Same | 1 | ReLU |
+| Batch Normalization | 64x64x256 | - | - | - | - | - |
+| Transposed Convolution | 128x128x64 | 3x3 | 2 | Same | 1 | Tanh |
+| Batch Normalization | 128x128x64 | - | - | - | - | - |
+| Convolution | 128x128x32 | 3x3 | 1 | Same | - | ReLU |
+| Batch Normalization | 128x128x32 | - | - | - | - | - |
+| Convolution | 128x128x16 | 3x3 | 1 | Same | - | ReLU |
+| Batch Normalization | 128x128x16 | - | - | - | - | - |
+| Convolution | 128x128x3 | 3x3 | 1 | Same | - | Sigmoid |
 
 ### Evaluation
 
-Both didn't work very well. The generated images are brown noises with some lines. To address this issue
+Both architecture didn't work very well. The generated images are brown noises with some lines. To address this issue
 
 
 ## Neural Transfer Model
@@ -194,7 +248,11 @@ I can also use a different dataset, such as the WikiArt dataset, to train our mo
 
 [3] https://learnopencv.com/variational-autoencoder-in-tensorflow/
 
-[4] https://arxiv.org/abs/1508.06576
+[4] https://arxiv.org/abs/1312.6114
+
+[6] https://github.com/tuanle618/deepArt-generation/tree/master
+
+[6] https://arxiv.org/abs/1508.06576
 
 [7] https://www.v7labs.com/blog/neural-style-transfer
 
