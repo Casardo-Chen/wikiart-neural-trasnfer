@@ -3,7 +3,7 @@
 Meng Chen
 
 ## Introduction
-This project aims to create new style abstract art based on neural-network-based models. I used three different models to generate abstract art: Deep Convolutional Generative Adversarial Network (DCGAN), Variational Autoencoder (VAE), and Neural Style Transfer. For Nueral Style Transfer, I also used a pre-trained VGG19 model to extract the style features of the style image. The result showed a combination of the style of the abstract art and the content of the content image(either a painting or a image).
+This project aims to create new style abstract art based on neural-network-based models. I used 2 different models to generate abstract art: Deep Convolutional Generative Adversarial Network (DCGAN), Variational Autoencoder (VAE). I also used a Neural Style Transferto create a combination of the style of abstract art and the content of either a painting or an image.
 
 
 ## Data Set
@@ -23,7 +23,7 @@ Our DCGAN model consists of a generator and a discriminator. \[2\]
 
 ### Generator
 
-The generator takes a random noise vector as input and generates a 2D image as output.
+The generator takes a random noise vector as input and generates a 2D image as output. (Code: `GAN_model.ipynb`) 
 
 The architecture of the generator is shown in the following image:
 ![alt text](./res/dcgan_generator.png)
@@ -106,7 +106,7 @@ $KL = -\frac{1}{2}\sum_{i=1}^{N}(1 + \log(\sigma_i^2) - \mu_i^2 - \sigma_i^2)$
 where $\mu_i$ and $\sigma_i$ are the mean and standard deviation of the latent vector, respectively.
 
 ### Architecture 1
-The first architecture is insprired by the VAE model proposed by Diederik P Kingma and Max Welling [4]. The input image size is 64x64x3; batch size is 64; the latent vector size is 100; the number of epochs is 100; the learning rate is 0.0002; the $\beta$ value is 0.5; the optimizer is Adam; the loss function is MSE loss.
+The first architecture is insprired by the VAE model proposed by Diederik P Kingma and Max Welling [4]. (Code: `VAE_model.ipynb`)  The input image size is 64x64x3; batch size is 100; the latent vector size is 100; the number of epochs is 100; the learning rate is 0.0002; the $\beta$ value is 0.5; the optimizer is Adam; the loss function is MSE loss.
 
 #### Encoder
 The encoder takes an image as input and outputs a latent vector. The architecture of the encoder is shown in the following image:
@@ -143,7 +143,7 @@ The encoder takes an image as input and outputs a latent vector. The architectur
 
 ### Architecture 2
 
-The second architecture is insprired by the VAE model proposed by Tuan Le [4]. The input image size is 128x128x3; batch size is 100; the latent vector size is 100; the number of epochs is 10; the learning rate is 0.0002; the $\beta$ value is 0.5; the optimizer is Adam; the loss function is MSE loss.
+The second architecture is insprired by the VAE model proposed by Tuan Le [4]. (Code: `VAE_model_new.ipynb`) The input image size is 128x128x3; batch size is 100; the latent vector size is 100; the number of epochs is 10; the learning rate is 0.0002; the $\beta$ value is 0.5; the optimizer is Adam; the loss function is MSE loss.
 
 #### Encoder
 Encoder takes an image as input and outputs a latent vector. It consists of 5 convolutional layers, 5 max pooling layers, and 5 batch normalization layers. 
@@ -194,12 +194,34 @@ Input: 4x4x16
 | Convolution | 128x128x3 | 3x3 | 1 | Same | - | Sigmoid |
 
 ### Evaluation
+Both architecture didn't work very well.
 
-Both architecture didn't work very well. The generated images are brown noises with some lines. To address this issue
+For architecture 1, I tuned various hyperparameters: batch size 32/100; the latent vector size is 100/200; the number of epochs is 20/50/100; the learning rate is 0.0001/0.0002/0.0003. However, none of these hyperparameters can generate a good result. The generated images are brown noises with some grid lines. 
+
+| Original Image | Epoch 20 Times | Epoch 50 Times | Epoch 100 Times |
+|:-----:|:--------:|:------:| :------:|
+| ![architecture1](./res/original.png) | ![architecture1](./res/20_epoch_vae.png) | ![architecture1](./res/50_epoch_vae.png) | ![architecture1](./res/100_epoch_vae.jpeg)
+
+Loss vs Epochs for architecture 1:
+![architecture1](./res/loss_func_a1_vae.jpeg)
+
+For architecture 2, the CNN model is very deep so the training process is very slow. It takes ~15min to train 1 epoch. Due to limit computing resources, I only trained 10 epoch and the output is full of gray with a few green clusters.
+
+![architecture2](./res/vae_a2_result.png)
+
+Loss vs Epochs for architecture 2:
+
+![architecture2](./res/loss_func_a2_vae.png)
+
+Architecture 1 is designed for fake human face generation. It is possible that the model is not suitable for generating abstract art. Yet, only after more hyperparameter tuning can we draw a conclusion.
+
+Tuan Le used architecture 2 to generate Japanese art and didn't receive a relative satisfying result until 22000 epochs. Apparently, 10 epoches is not enough for architecture 2 to learn the features of the dataset. More computing resources are needed to validate the performance of architecture 2.
+
+I may also use VGG19 to extract the features of the images and use the features as the input of the decoder instead of designing encoder and decoder by myself.
 
 
 ## Neural Transfer Model
-Neural Transfer allows me to take an image and reproduce it with a new artistic style. The algorithm takes three images, an input image, a content-image, and a style-image, and changes the input to resemble the content of the content-image and the artistic style of the style-image. \[4\]
+Neural Transfer allows me to take an image and reproduce it with a new artistic style. The algorithm takes three images, an input image, a content-image, and a style-image, and changes the input to resemble the content of the content-image and the artistic style of the style-image. \[4\] (Code: `Neural_Transfer_Model.ipynb`) 
 
 To extract the features of the pictures, I use a pre-trained VGG19 model. A bpre-trained model is helpful in facilitating the training process. I choose one picture from the abstract art gallery dataset as the style image and a picture from the WikiArt dataset as the style image and pictures from Neural Style Transfer folder (starry night, mona lisa, and a potrait of myself) as the content images. I resize the images in the Abstract Art Gallery dataset to 64x64 pixels.
 
@@ -237,10 +259,11 @@ I tested 3 different style images and 3 different content images. The results ar
 To evaluate the performance of the model, I used the content loss and the style loss as the evaluation metrics. It is noticeable that the content loss increases when the content image become more concrete (a real-life photo) as the corresponding content weight increases. For he model art content images, it is relatively to transfer the abstract art style while keeping the original content. The style loss lies in a reasonable range in all three cases. I asked 10 people to evaluate the generated images. The mona lisa image has the highest score (8.5/10) while the potrait image has the lowest score (7/10) since the network transfers too much style from the style image that blurs the content. The starry night image has a score of 8.2/10.
 
 ## Discussion and Future Work
-One way to improve the performance of my models is to train the model for more epochs. However, the training time is very long, and I only have limited time to train the model.
+In general, GAN model generates satisfying results. VAE model fails to generate abstract art. Neural Transfer model successfully transfers the style of the style image to the content image. However, there are some rooms for improvement.
 
-I can also use a different dataset, such as the WikiArt dataset, to train our model. WikiArt is a large dataset of paintings from different artists. It contains 50,000 images of paintings in the JPG format and have a resolution of 256x256 pixels. I can use this dataset to train our model and generate paintings of other styles and conduct a neural style transfer.
+One way to improve the performance of my models is to train the model for more epochs. However, the training time is very long with current limited hardware.
 
+Abstract art is not a well-defined concept as various artists have different styles, which may account for the hardness of training a model. WikiArt is a large dataset of paintings from different artists. It contains 50,000 images of paintings in the JPG format and have a resolution of 256x256 pixels. It has 27 categories of paintings. Categories like potrait, landscape are easier to find common features which may help the model to successfully generate images.
 ## Reference
 [1] https://arxiv.org/pdf/1511.06434v2.pdf
 
@@ -257,3 +280,6 @@ I can also use a different dataset, such as the WikiArt dataset, to train our mo
 [7] https://www.v7labs.com/blog/neural-style-transfer
 
 [8] https://www.researchgate.net/figure/VGG-19-Architecture-39-VGG-19-has-16-convolution-layers-grouped-into-5-blocks-After_fig5_359771670
+
+## License
+[MIT License](https://choosealicense.com/licenses/mit/)
