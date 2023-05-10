@@ -18,7 +18,7 @@ It contains content images for neural transfer, including starry night, mona lis
 ## How to run
 Required package: `pytorch, numpy, pandas, matplotlib, PIL, torchvision, tqdm, IPython`
 
-Code: `GAN_model.ipynb`, `VAE_model.ipynb`, , `VAE_model_new.ipynb`, `neural_transfer.ipynb`
+Code: `GAN_model.ipynb`, `VAE_model.ipynb`, `VAE_model_new.ipynb`, `neural_transfer.ipynb`
 
 For each model, there is a variable called `mode` which can be set to get data from google drive or local folder. If you want to run the code locally, set `mode` to `local`. If you want to run the code on google colab, set `mode` to `google drive`.
 
