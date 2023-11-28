@@ -10,7 +10,7 @@ This project aims to create new style abstract art based on neural-network-based
 Abstract Art Gallery: 
 https://www.kaggle.com/datasets/bryanb/abstract-art-gallery
 
-It contains two folders Abstract_gallery and Abstract_gallery_2. Abstract_gallery folder contains 2782 images of abstract art while Abstract_gallery_2 contains 90 images. The images are in the JPG format and have a resolution of 256x256 pixels. I used the Abstract_gallery folder for training.
+It contains two folders `Abstract_gallery` and `Abstract_gallery_2`. `Abstract_gallery` folder contains 2782 images of abstract art while `Abstract_gallery_2` contains 90 images. The images are in the JPG format and have a resolution of 256x256 pixels. I used the `Abstract_gallery` folder for training.
 
 Neural Transfer:
 It contains content images for neural transfer, including starry night, mona lisa and a potrait of myself.
